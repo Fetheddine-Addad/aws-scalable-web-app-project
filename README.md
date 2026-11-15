@@ -87,7 +87,7 @@ Instances in private subnets reach the internet (Systems Manager, Secrets Manage
 ## Deploy
 
 ```bash
-git clone https://github.com/Fetheddine-Addad/aws-scalable-web-app.git
+git clone https://github.com/Fetheddine-Addad/aws-scalable-web-app-project.git
 cd aws-scalable-web-app/terraform
 
 cp terraform.tfvars.example terraform.tfvars   # set alarm_email at least
