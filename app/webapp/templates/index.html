@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ops Board</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Ops Board</h1>
+      <p class="sub">Incident and task tracker running on EC2 behind an ALB</p>
+    </div>
+    <div class="node" id="node" title="The instance that served this page. Refresh to see the load balancer rotate.">
+      <span class="node-label">served by</span>
+      <code id="node-id">{{ info.instance_id }}</code>
+      <span class="chip">{{ info.availability_zone }}</span>
+      <span class="chip muted">v{{ version }}</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <form id="task-form" autocomplete="off">
+        <input name="title" placeholder="What needs doing?" maxlength="120" required>
+        <select name="priority" aria-label="Priority">
+          <option value="low">low</option>
+          <option value="medium" selected>medium</option>
+          <option value="high">high</option>
+        </select>
+        <button type="submit">Add task</button>
+      </form>
+      <p id="message" class="message" role="status"></p>
+    </section>
+
+    <section class="board" id="board">
+      <div class="column" data-status="todo"><h2>To do <span class="count" id="count-todo">0</span></h2><ul></ul></div>
+      <div class="column" data-status="in_progress"><h2>In progress <span class="count" id="count-in_progress">0</span></h2><ul></ul></div>
+      <div class="column" data-status="done"><h2>Done <span class="count" id="count-done">0</span></h2><ul></ul></div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="db-state">database: checking...</span>
+    <span>API: <code>/api/tasks</code> &middot; <code>/health</code> &middot; <code>/health/ready</code> &middot; <code>/api/info</code></span>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

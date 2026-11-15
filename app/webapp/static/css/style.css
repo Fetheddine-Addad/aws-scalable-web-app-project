@@ -1,0 +1,74 @@
+:root {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --text: #1c2430;
+  --muted: #667085;
+  --border: #dfe3ea;
+  --accent: #ff9900;
+  --accent-dark: #c47400;
+  --high: #d92d20;
+  --medium: #b54708;
+  --low: #067647;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 24px;
+  background: #232f3e;
+  color: #fff;
+  border-bottom: 3px solid var(--accent);
+}
+.topbar h1 { margin: 0; font-size: 20px; }
+.sub { margin: 0; color: #aab4c3; font-size: 13px; }
+.node { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.node-label { color: #aab4c3; }
+.node code { background: #35445a; padding: 2px 6px; border-radius: 4px; }
+.chip { background: var(--accent); color: #1c2430; padding: 1px 8px; border-radius: 999px; font-weight: 600; font-size: 12px; }
+.chip.muted { background: #35445a; color: #dbe2ec; }
+
+main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+form { display: flex; gap: 8px; flex-wrap: wrap; }
+input, select, button { font: inherit; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--border); }
+input { flex: 1 1 280px; }
+button { background: var(--accent); border-color: var(--accent); color: #1c2430; font-weight: 600; cursor: pointer; }
+button:hover { background: var(--accent-dark); color: #fff; }
+.message { margin: 8px 0 0; min-height: 1.4em; color: var(--high); font-size: 13px; }
+
+.board { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.column { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px; min-height: 160px; }
+.column h2 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.count { background: var(--bg); border-radius: 999px; padding: 0 8px; margin-left: 4px; }
+ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+
+li.card { border: 1px solid var(--border); border-left: 4px solid var(--medium); border-radius: 8px; padding: 10px 12px; background: #fff; }
+li.card.high { border-left-color: var(--high); }
+li.card.low { border-left-color: var(--low); }
+li.card .title { font-weight: 600; word-break: break-word; }
+li.card .actions { display: flex; gap: 6px; margin-top: 8px; }
+li.card button { padding: 3px 10px; font-size: 12px; background: #fff; border-color: var(--border); color: var(--text); font-weight: 500; }
+li.card button:hover { background: var(--bg); color: var(--text); }
+li.card button.danger { color: var(--high); }
+
+footer { max-width: 1100px; margin: 0 auto 24px; padding: 0 16px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; color: var(--muted); font-size: 13px; }
+footer code { background: #e7eaf0; padding: 1px 5px; border-radius: 4px; }

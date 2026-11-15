@@ -1,0 +1,17 @@
+# Copy to terraform.tfvars and edit. Every value shown is the default unless noted.
+
+region      = "us-east-1"
+environment = "demo"
+
+# Where CloudWatch alarms are emailed. You must click the confirmation link AWS sends.
+alarm_email = "you@example.com" # default: "" (no subscription)
+
+# Cheapest topology for a short test. For a production-like run use false (one NAT per AZ).
+single_nat_gateway = true
+
+# Optional Route 53 alias to the ALB. Needs a hosted zone you already own.
+# domain_name    = "app.example.com"
+# hosted_zone_id = "Z0123456789ABCDEFGHIJ"
+
+# Longer scaling demo on t3.micro: credits run out after roughly 6 minutes of full load.
+# cpu_credits = "unlimited"

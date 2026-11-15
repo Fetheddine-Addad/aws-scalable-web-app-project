@@ -1,0 +1,28 @@
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/*.tfvars
+!terraform/terraform.tfvars.example
+terraform/crash.log
+terraform/build/*
+!terraform/build/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+app/local.db
+app/instance/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Claude Code local tooling
+.claude/
+
+# Personal deployment record (contains real account IDs/ARNs) — not for the repo
+DEPLOYMENT_GUIDE.md

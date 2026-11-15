@@ -1,0 +1,56 @@
+#!/bin/bash
+# Bootstraps a web-tier instance: fetch the app bundle from S3, build a venv, run gunicorn under systemd.
+# Rendered by Terraform's templatefile(); log output is in /var/log/user-data.log.
+set -euxo pipefail
+exec > >(tee /var/log/user-data.log) 2>&1
+
+dnf install -y python3.11 python3.11-pip unzip
+
+id webapp >/dev/null 2>&1 || useradd --system --home-dir /opt/app --shell /sbin/nologin webapp
+mkdir -p /opt/app
+
+aws s3 cp "s3://${artifact_bucket}/${artifact_key}" /tmp/app.zip --region ${region}
+unzip -oq /tmp/app.zip -d /opt/app
+
+python3.11 -m venv /opt/app/venv
+/opt/app/venv/bin/pip install --no-cache-dir --upgrade pip
+/opt/app/venv/bin/pip install --no-cache-dir -r /opt/app/requirements.txt
+chown -R webapp:webapp /opt/app
+
+# Non-secret settings only. The DB password is fetched at runtime from Secrets Manager.
+cat > /etc/opsboard.env <<'EOF'
+AWS_REGION=${region}
+DB_HOST=${db_host}
+DB_PORT=5432
+DB_NAME=${db_name}
+DB_SECRET_ARN=${db_secret_arn}
+LOAD_ENDPOINT_ENABLED=${load_endpoint_enabled}
+APP_VERSION=${app_version}
+EOF
+chmod 640 /etc/opsboard.env
+chown root:webapp /etc/opsboard.env
+
+cat > /etc/systemd/system/opsboard.service <<'EOF'
+[Unit]
+Description=Ops Board (gunicorn)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=webapp
+Group=webapp
+WorkingDirectory=/opt/app
+EnvironmentFile=/etc/opsboard.env
+ExecStart=/opt/app/venv/bin/gunicorn --workers 2 --threads 4 --bind 0.0.0.0:8000 --timeout 60 --access-logfile - wsgi:app
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable --now opsboard.service
