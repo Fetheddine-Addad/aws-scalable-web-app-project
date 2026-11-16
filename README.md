@@ -72,8 +72,8 @@ Instances in private subnets reach the internet (Systems Manager, Secrets Manage
 │   ├── rds.tf  iam_storage.tf  monitoring.tf  outputs.tf
 │   └── user_data.sh.tftpl  instance bootstrap
 ├── scripts/                verify.sh, load_test.sh, failover_test.sh
-├── docs/                   architecture diagram (drawio, png, svg) and its generator
-└── .github/workflows/      CI: app tests, terraform fmt and validate
+├── docs/                   architecture diagram (drawio, png, svg)
+└── .github/workflows/      CI: app tests, terraform validate
 ```
 
 ## Prerequisites
