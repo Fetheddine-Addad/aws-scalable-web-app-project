@@ -6,7 +6,7 @@ The workload is a real, small application (an incident and task board with a RES
 
 ![Architecture diagram](docs/architecture.png)
 
-*Editable source: [`docs/architecture.drawio`](docs/architecture.drawio) (open in [diagrams.net](https://app.diagrams.net)). Regenerate all formats with `python3 docs/generate_diagram.py`.*
+*Editable source: [`docs/architecture.drawio`](docs/architecture.drawio) (open in [diagrams.net](https://app.diagrams.net)).*
 
 ## Contents
 
