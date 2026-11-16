@@ -254,15 +254,6 @@ terraform destroy
 
 Destroy takes about 10 to 15 minutes (CloudFront and RDS are the slow parts). Afterwards, confirm in the console that nothing is left: **EC2** (instances, volumes, Elastic IPs), **VPC** (NAT Gateways), **RDS** (instances and snapshots), **Secrets Manager**, **CloudFront** and **CloudWatch** (dashboards, alarms). Demo settings (`skip_final_snapshot`, no deletion protection, `force_destroy` on the bucket) make the destroy clean on purpose.
 
-## Known limitations and next steps
-
-* Plain HTTP between CloudFront and the ALB (and for the Route 53 alias). Next step: an ACM certificate and an HTTPS listener, with CloudFront connecting over HTTPS and a secret origin header.
-* The WAF rate limit keys on the source IP. Behind CloudFront that is the edge IP, so a forwarded-IP configuration would be more precise.
-* `/api/load` is a demo endpoint and is enabled by default. Set `enable_load_endpoint = false` for anything beyond a demo.
-* Single NAT Gateway and demo-grade database retention (one day of backups, no final snapshot).
-* No CI/CD pipeline for application releases, no read replica, no HTTPS on the custom domain.
-* The Terraform in this repository was written and reviewed offline: the application tests pass, but run `terraform validate` and `terraform plan` yourself before the first apply.
-
 ## Verified deployment
 
 This stack was deployed end-to-end on a real AWS account (`us-east-1`) to confirm the Terraform actually produces a working system, then torn down with `terraform destroy` (69 resources, clean destroy, no leftovers).
