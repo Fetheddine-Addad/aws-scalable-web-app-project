@@ -21,7 +21,6 @@ The workload is a real, small application (an incident and task board with a RES
 9. [Security](#security)
 10. [Monitoring](#monitoring)
 11. [Tear down](#tear-down)
-12. [Known limitations and next steps](#known-limitations-and-next-steps)
 13. [Verified deployment](#verified-deployment)
 14. [References](#references)
 
